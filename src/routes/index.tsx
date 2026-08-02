@@ -167,7 +167,7 @@ function LandingPage() {
 
       {/* ── Fixed bottom bar — appears when plane lands ── */}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-4 px-6 py-3 backdrop-blur-md bg-background/40 border-t border-border/10"
+        className="fixed bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-4 px-6 py-3"
         style={{ opacity: ctaOpacity }}
       >
         <Link
