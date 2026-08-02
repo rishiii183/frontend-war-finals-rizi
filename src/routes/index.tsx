@@ -98,14 +98,6 @@ function LandingPage() {
           className="flex flex-col items-center text-center"
           style={{ opacity: textOpacity, y: textY }}
         >
-          {/* Status Badge */}
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-surface/60 px-4 py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(56,189,248,0.12)]">
-            <span className="pulse-dot h-2 w-2 rounded-full bg-accent" />
-            <span className="mono-num text-[11px] font-medium tracking-[0.2em] text-accent uppercase">
-              Operational Command · Hub Control
-            </span>
-          </div>
-
           {/* Main Title with Gradient & Ambient Glow */}
           <h1 className="font-sans font-black text-6xl tracking-[0.12em] uppercase bg-gradient-to-r from-slate-100 via-sky-200 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(56,189,248,0.35)] sm:text-8xl md:text-9xl">
             AOCC

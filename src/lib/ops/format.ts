@@ -1,13 +1,13 @@
+import { format } from "date-fns";
+
 export const MIN = 60_000;
 
 export function fmtTime(ts: number) {
-  const d = new Date(ts);
-  return `${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`;
+  return format(new Date(ts), "HH:mm");
 }
 
 export function fmtClock(ts: number) {
-  const d = new Date(ts);
-  return `${fmtTime(ts)}:${String(d.getUTCSeconds()).padStart(2, "0")}`;
+  return format(new Date(ts), "HH:mm:ss");
 }
 
 export function fmtDelta(ms: number) {
