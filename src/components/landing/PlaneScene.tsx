@@ -55,9 +55,9 @@ function AnimatedPlane({ progress }: { progress: MotionValue<number> }) {
     // Smoothstep for vertical descent: slow → fast → slow (landing flare)
     const yEased = p * p * (3 - 2 * p);
 
-    g.position.x = THREE.MathUtils.lerp(4.5, -3.5, p);
-    g.position.y = THREE.MathUtils.lerp(3.8, 0.25, yEased);
-    g.position.z = THREE.MathUtils.lerp(-1.5, 0.8, p);
+    g.position.x = THREE.MathUtils.lerp(5.2, -3.5, p);
+    g.position.y = THREE.MathUtils.lerp(4.6, 0.25, yEased);
+    g.position.z = THREE.MathUtils.lerp(-1.8, 0.8, p);
 
     // Bank reduces as plane levels out
     g.rotation.z = THREE.MathUtils.lerp(-0.35, 0, p);
