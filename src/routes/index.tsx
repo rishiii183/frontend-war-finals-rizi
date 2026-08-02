@@ -196,9 +196,8 @@ function LandingPage() {
 
       {/* ────────────── CTA section ────────────── */}
       <section className="relative z-10 flex h-[50vh] flex-col items-center justify-center px-4">
-        <motion.div
+        <div
           className="flex flex-col items-center rounded-2xl border border-border/80 bg-surface/90 p-8 sm:p-12 text-center backdrop-blur-xl max-w-xl shadow-2xl"
-          style={{ opacity: ctaOpacity, y: ctaY }}
         >
           <div className="mb-4 rounded-full bg-accent/10 p-3 border border-accent/30 text-accent">
             <Radio className="h-6 w-6" />
@@ -225,7 +224,7 @@ function LandingPage() {
               <span>View Live Analytics</span>
             </Link>
           </div>
-        </motion.div>
+        </div>
       </section>
     </div>
   );
