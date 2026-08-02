@@ -162,38 +162,7 @@ function LandingPage() {
       {/* ─────── Scroll spacer (plane descends through this zone) ─────── */}
       <section className="relative z-10 h-screen" aria-hidden="true" />
 
-      {/* ─────────── Runway transition ─────────── */}
-      <section className="relative z-10 flex h-[50vh] items-end justify-center pb-12">
-        <motion.div
-          className="runway-container w-full max-w-3xl px-4"
-          style={{ opacity: runwayOpacity }}
-        >
-          {/* Edge lights — top row */}
-          <div className="flex justify-between px-2">
-            {Array.from({ length: 16 }).map((_, i) => (
-              <span
-                key={`t${i}`}
-                className="h-2 w-2 rounded-full bg-accent"
-                style={{ boxShadow: "0 0 10px var(--color-accent)" }}
-              />
-            ))}
-          </div>
 
-          {/* Center dashes */}
-          <div className="runway-line mx-auto mt-4 w-full" />
-
-          {/* Edge lights — bottom row */}
-          <div className="mt-4 flex justify-between px-2">
-            {Array.from({ length: 16 }).map((_, i) => (
-              <span
-                key={`b${i}`}
-                className="h-2 w-2 rounded-full bg-accent"
-                style={{ boxShadow: "0 0 10px var(--color-accent)" }}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </section>
     </div>
 
       {/* ── Fixed bottom bar — appears when plane lands ── */}
