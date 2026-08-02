@@ -26,6 +26,8 @@ export const Route = createFileRoute("/dashboard/gates")({
   component: Gates,
 });
 
+import { motion } from "framer-motion";
+
 const TERMINALS = ["T1", "T2", "T3"];
 
 function Gates() {
@@ -73,21 +75,31 @@ function Gates() {
         title="Stand occupancy timeline"
         subtitle="Conflict-aware gate plan"
         action={
-          <div className="flex gap-1 rounded-sm border border-border bg-surface p-0.5">
-            {TERMINALS.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTerminal(t)}
-                className={cn(
-                  "rounded-[3px] px-2.5 py-1 text-xs transition-colors",
-                  terminal === t
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {t}
-              </button>
-            ))}
+          <div className="relative flex gap-1 rounded-sm border border-border bg-surface p-0.5">
+            {TERMINALS.map((t) => {
+              const active = terminal === t;
+              return (
+                <button
+                  key={t}
+                  onClick={() => setTerminal(t)}
+                  className={cn(
+                    "relative rounded-[3px] px-2.5 py-1 text-xs transition-colors z-10",
+                    active
+                      ? "text-primary-foreground font-semibold"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {t}
+                  {active && (
+                    <motion.span
+                      layoutId="activeTerminalTab"
+                      className="absolute inset-0 bg-primary rounded-[3px] -z-10"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
         }
       >

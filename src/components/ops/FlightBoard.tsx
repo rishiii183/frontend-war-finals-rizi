@@ -6,6 +6,7 @@ import type { Flight } from "@/lib/ops/types";
 import { StatusChip } from "./StatusChip";
 import { FlightDetail } from "./FlightDetail";
 import { CustomSelect } from "./CustomSelect";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type SortKey = "scheduled" | "delay_min" | "flight_no";
@@ -61,26 +62,37 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
               className="w-full rounded-sm border border-input bg-background py-1.5 pr-3 pl-8 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-ring"
             />
           </div>
-          <div className="flex items-center gap-1 rounded-sm border border-border bg-surface p-0.5">
-            {(["All", "Arrival", "Departure"] as const).map((d) => (
-              <button
-                key={d}
-                onClick={() => setDir(d)}
-                className={cn(
-                  "rounded-[3px] px-2.5 py-1 text-xs transition-colors",
-                  dir === d
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {d}
-              </button>
-            ))}
+          <div className="relative flex items-center gap-1 rounded-sm border border-border bg-surface p-0.5">
+            {(["All", "Arrival", "Departure"] as const).map((d) => {
+              const active = dir === d;
+              return (
+                <button
+                  key={d}
+                  onClick={() => setDir(d)}
+                  className={cn(
+                    "relative rounded-[3px] px-2.5 py-1 text-xs transition-colors z-10",
+                    active
+                      ? "text-primary-foreground font-medium"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {d}
+                  {active && (
+                    <motion.span
+                      layoutId="activeDirectionTab"
+                      className="absolute inset-0 bg-primary rounded-[3px] -z-10"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
           <CustomSelect
             value={status}
             onChange={(val) => setStatus(val)}
             options={STATUSES.map((s) => ({ value: s, label: s === "All" ? "All statuses" : s }))}
+            className="w-36"
           />
           <CustomSelect
             value={sort}
@@ -90,6 +102,7 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
               { value: "delay_min", label: "Sort: delay" },
               { value: "flight_no", label: "Sort: flight no." },
             ]}
+            className="w-36"
           />
         </div>
       )}

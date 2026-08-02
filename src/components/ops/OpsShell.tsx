@@ -6,6 +6,8 @@ import { fmtClock } from "@/lib/ops/format";
 import { HUB } from "@/lib/ops/dataset";
 import { cn } from "@/lib/utils";
 
+import { motion } from "framer-motion";
+
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: Activity },
   { to: "/dashboard/flights", label: "Flights", icon: PlaneTakeoff },
@@ -82,21 +84,31 @@ export function OpsShell({ children }: { children: ReactNode }) {
             </p>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden items-center gap-1 rounded-sm border border-border bg-surface p-0.5 sm:flex">
-              {SPEEDS.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setSpeed(s)}
-                  className={cn(
-                    "mono-num rounded-[3px] px-2 py-1 text-[11px] transition-colors",
-                    speed === s
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {s}x
-                </button>
-              ))}
+            <div className="relative hidden items-center gap-1 rounded-sm border border-border bg-surface p-0.5 sm:flex">
+              {SPEEDS.map((s) => {
+                const active = speed === s;
+                return (
+                  <button
+                    key={s}
+                    onClick={() => setSpeed(s)}
+                    className={cn(
+                      "relative mono-num rounded-[3px] px-2 py-1 text-[11px] transition-colors z-10",
+                      active
+                        ? "text-primary-foreground font-semibold"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {s}x
+                    {active && (
+                      <motion.span
+                        layoutId="activeSpeedTab"
+                        className="absolute inset-0 bg-primary rounded-[3px] -z-10"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
             <button
               onClick={() => setRunning(!running)}
