@@ -28,15 +28,16 @@ const OpsContext = createContext<OpsValue | null>(null);
 /** Derives a live status from the static row + simulated clock. */
 export function liveStatus(f: Flight, now: number): Flight["status"] {
   if (f.status === "Cancelled" || f.status === "Diverted") return f.status;
+  if (f.delay_min >= 15) return "Delayed";
   const t = f.estimated;
   if (f.direction === "Departure") {
     if (now >= t + 5 * MIN) return "Departed";
     if (now >= t - 25 * MIN) return "Boarding";
-    return f.delay_min >= 15 ? "Delayed" : "Scheduled";
+    return "Scheduled";
   }
   if (now >= t) return "Landed";
   if (now >= t - 60 * MIN) return "En Route";
-  return f.delay_min >= 15 ? "Delayed" : "Scheduled";
+  return "Scheduled";
 }
 
 function seedAlerts(data: Dataset, now: number): OpsAlert[] {

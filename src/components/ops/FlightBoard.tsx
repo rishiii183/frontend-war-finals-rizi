@@ -5,6 +5,7 @@ import { fmtTime } from "@/lib/ops/format";
 import type { Flight } from "@/lib/ops/types";
 import { StatusChip } from "./StatusChip";
 import { FlightDetail } from "./FlightDetail";
+import { CustomSelect } from "./CustomSelect";
 import { cn } from "@/lib/utils";
 
 type SortKey = "scheduled" | "delay_min" | "flight_no";
@@ -76,26 +77,20 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
               </button>
             ))}
           </div>
-          <select
+          <CustomSelect
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="rounded-sm border border-input bg-surface px-2 py-1.5 text-xs text-foreground outline-none focus:border-ring"
-          >
-            {STATUSES.map((s) => (
-              <option key={s} value={s}>
-                {s === "All" ? "All statuses" : s}
-              </option>
-            ))}
-          </select>
-          <select
+            onChange={(val) => setStatus(val)}
+            options={STATUSES.map((s) => ({ value: s, label: s === "All" ? "All statuses" : s }))}
+          />
+          <CustomSelect
             value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-sm border border-input bg-surface px-2 py-1.5 text-xs text-foreground outline-none focus:border-ring"
-          >
-            <option value="scheduled">Sort: schedule</option>
-            <option value="delay_min">Sort: delay</option>
-            <option value="flight_no">Sort: flight no.</option>
-          </select>
+            onChange={(val) => setSort(val as SortKey)}
+            options={[
+              { value: "scheduled", label: "Sort: schedule" },
+              { value: "delay_min", label: "Sort: delay" },
+              { value: "flight_no", label: "Sort: flight no." },
+            ]}
+          />
         </div>
       )}
 
