@@ -1,26 +1,33 @@
-# Premium Web Showcase
+# AOCC — Airport Operations Control Center
 
-i want you generate a frontend based webstie for this problem statement 
-its should look good and should give premimum value 
-ask me questions for the everything you needd to add in the website
+An operational dashboard for airport operations control teams at Indira Gandhi International Airport (DEL).
 
-This project was built with [Lovable](https://lovable.dev).
+## Key Features
+- **3D Hero Landing Page**: Interactive scroll-driven 3D commercial airliner landing scene powered by `@react-three/fiber` and Three.js.
+- **Ops Overview Dashboard**: Live situational awareness unifying flights, gate stand occupancy, baggage flow, security screening queues, maintenance work orders, staff roster, and retail transactions.
+- **Flight Board**: Real-time arrival and departure flight monitoring with delay tracking, aircraft registrations, gate assignments, and priority badges.
+- **Gate & Stand Timeline**: Interactive gate occupancy timeline with conflict detection and turnaround event logs.
+- **Resources & Roster**: Equipment maintenance tracking, technician dispatches, and staff shift schedules.
 
-## Build with Lovable
+## Technology Stack
+- **Framework**: React 19 + TypeScript + Vite
+- **Routing**: TanStack Router (file-based routing)
+- **3D Graphics**: Three.js + `@react-three/fiber` + `@react-three/drei`
+- **Animations**: `framer-motion`
+- **Data Visualizations**: `recharts`
+- **Data Tables**: `@tanstack/react-table`
+- **Icons**: `lucide-react`
+- **Date & Time**: `date-fns`
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1825476c-a856-46c3-8bdd-edab21e8f76c).
+## Local Development
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+```bash
+# Install dependencies
+npm install
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+# Start local dev server
 npm run dev
+
+# Production build
+npm run build
 ```
