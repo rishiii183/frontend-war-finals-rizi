@@ -72,6 +72,7 @@ function LandingPage() {
   });
 
   return (
+    <>
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
       {/* ── Floating Header ── */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-background/20 border-b border-border/10">
@@ -228,5 +229,17 @@ function LandingPage() {
         </motion.div>
       </section>
     </div>
+
+      {/* ── Fixed bottom bar — always visible ── */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-4 px-6 py-3 backdrop-blur-md bg-background/40 border-t border-border/10">
+        <Link
+          to="/dashboard"
+          className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-2.5 text-xs font-semibold text-accent-foreground hover:opacity-90 transition-all shadow-[0_0_20px_rgba(0,242,254,0.3)]"
+        >
+          <ArrowRight className="h-3.5 w-3.5" />
+          <span>Go to Dashboard</span>
+        </Link>
+      </div>
+    </>
   );
 }
