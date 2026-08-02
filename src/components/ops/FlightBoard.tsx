@@ -49,6 +49,24 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
 
   const STATUSES = ["All", "Boarding", "En Route", "Delayed", "Landed", "Departed", "Cancelled"];
 
+  // Pagination states
+  const [page, setPage] = useState(0);
+  const pageSize = 12;
+
+  // Reset page when filters change
+  const currentFiltersKey = `${dir}-${status}-${q}-${sort}`;
+  const [lastFiltersKey, setLastFiltersKey] = useState(currentFiltersKey);
+  if (currentFiltersKey !== lastFiltersKey) {
+    setPage(0);
+    setLastFiltersKey(currentFiltersKey);
+  }
+
+  const pageCount = Math.ceil(rows.length / pageSize);
+  const displayRows = useMemo(() => {
+    if (compact) return rows;
+    return rows.slice(page * pageSize, (page + 1) * pageSize);
+  }, [rows, page, pageSize, compact]);
+
   return (
     <div className="flex min-w-0 flex-col">
       {!compact && (
@@ -121,7 +139,7 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((f) => (
+            {displayRows.map((f) => (
               <tr
                 key={f.flight_id}
                 onClick={() => setSelected(f)}
@@ -167,7 +185,7 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
                 </td>
               </tr>
             ))}
-            {!rows.length && (
+            {!displayRows.length && (
               <tr>
                 <td colSpan={7} className="px-4 py-10 text-center text-sm text-muted-foreground">
                   No flights match the current filters.
@@ -177,6 +195,39 @@ export function FlightBoard({ compact = false }: { compact?: boolean }) {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+      {!compact && pageCount > 1 && (
+        <div className="flex items-center justify-between border-t border-border px-4 py-3 bg-surface/10">
+          <p className="text-xs text-muted-foreground">
+            Showing <span className="text-foreground font-medium">{page * pageSize + 1}</span> to{" "}
+            <span className="text-foreground font-medium">
+              {Math.min((page + 1) * pageSize, rows.length)}
+            </span>{" "}
+            of <span className="text-foreground font-medium">{rows.length}</span> flights
+          </p>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              disabled={page === 0}
+              className="px-2.5 py-1.5 rounded-md border border-border bg-surface text-xs text-foreground font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-surface-raised transition-colors"
+            >
+              Previous
+            </button>
+            <span className="text-xs text-muted-foreground px-2">
+              Page <span className="text-foreground font-medium">{page + 1}</span> of{" "}
+              <span className="text-foreground font-medium">{pageCount}</span>
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
+              disabled={page === pageCount - 1}
+              className="px-2.5 py-1.5 rounded-md border border-border bg-surface text-xs text-foreground font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-surface-raised transition-colors"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
 
       <FlightDetail flight={selected} onClose={() => setSelected(null)} />
     </div>
