@@ -71,22 +71,30 @@ function Overview() {
   }, [data, now]);
 
   const throughput = useMemo(() => {
-    const buckets: { t: string; arrivals: number; departures: number; delay: number }[] = [];
-    for (let h = -4; h <= 4; h++) {
-      const from = now + h * 3600_000;
-      const to = from + 3600_000;
-      const win = data.flights.filter((f) => f.estimated >= from && f.estimated < to);
-      buckets.push({
-        t: fmtTime(from),
-        arrivals: win.filter((f) => f.direction === "Arrival").length,
-        departures: win.filter((f) => f.direction === "Departure").length,
-        delay: win.length
-          ? Math.round(win.reduce((s, f) => s + f.delay_min, 0) / win.length)
-          : 0,
-      });
+    const bucketsMap = new Map<number, { arrivals: number; departures: number; totalDelay: number; count: number }>();
+    for (let h = 0; h < 24; h += 2) {
+      bucketsMap.set(h, { arrivals: 0, departures: 0, totalDelay: 0, count: 0 });
     }
-    return buckets;
-  }, [data.flights, now]);
+
+    data.flights.forEach((f) => {
+      const h = new Date(f.estimated).getHours();
+      const bucketHour = Math.floor(h / 2) * 2;
+      const b = bucketsMap.get(bucketHour);
+      if (b) {
+        if (f.direction === "Arrival") b.arrivals++;
+        else b.departures++;
+        b.totalDelay += f.delay_min;
+        b.count++;
+      }
+    });
+
+    return Array.from(bucketsMap.entries()).map(([h, b]) => ({
+      t: `${String(h).padStart(2, "0")}:00`,
+      arrivals: b.arrivals,
+      departures: b.departures,
+      delay: b.count ? Math.round(b.totalDelay / b.count) : 0,
+    }));
+  }, [data.flights]);
 
   const bagFlow = useMemo(() => {
     const stages = ["Check-in", "Screening", "Sorting", "Loading", "Delivered", "Mishandled"];

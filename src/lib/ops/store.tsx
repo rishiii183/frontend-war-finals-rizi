@@ -89,7 +89,7 @@ const ROTATION: Array<(d: Dataset, now: number) => OpsAlert | null> = [
     const f = d.flights.find((x) => x.delay_min > 30 && x.status !== "Cancelled");
     return f
       ? {
-          id: `d-${now}`,
+          id: `d-${now}-${Math.random().toString(36).slice(2, 7)}`,
           ts: now,
           severity: "warning",
           domain: "Flight",
@@ -103,7 +103,7 @@ const ROTATION: Array<(d: Dataset, now: number) => OpsAlert | null> = [
     const b = d.baggage.find((x) => x.stage === "Mishandled");
     return b
       ? {
-          id: `b-${now}`,
+          id: `b-${now}-${Math.random().toString(36).slice(2, 7)}`,
           ts: now,
           severity: "warning",
           domain: "Baggage",
@@ -113,7 +113,7 @@ const ROTATION: Array<(d: Dataset, now: number) => OpsAlert | null> = [
       : null;
   },
   (d, now) => ({
-    id: `s-${now}`,
+    id: `s-${now}-${Math.random().toString(36).slice(2, 7)}`,
     ts: now,
     severity: "info",
     domain: "Staff",
@@ -124,7 +124,7 @@ const ROTATION: Array<(d: Dataset, now: number) => OpsAlert | null> = [
     const e = d.gateEvents[Math.floor(now / MIN) % d.gateEvents.length];
     return e
       ? {
-          id: `g-${now}`,
+          id: `g-${now}-${Math.random().toString(36).slice(2, 7)}`,
           ts: now,
           severity: "info",
           domain: "Gate",
