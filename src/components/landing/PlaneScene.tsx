@@ -5,6 +5,26 @@ import type { MotionValue } from "framer-motion";
 import { Sparkles } from "@react-three/drei";
 import { PlaneModel } from "./PlaneModel";
 
+// Patch Three.js Object3D prototype so R3F ignores instrumentation data-* attributes
+if (typeof window !== "undefined" && !(THREE.Object3D.prototype as any).data) {
+  const dataMap = new WeakMap();
+  Object.defineProperty(THREE.Object3D.prototype, "data", {
+    get() {
+      let d = dataMap.get(this);
+      if (!d) {
+        d = {};
+        dataMap.set(this, d);
+      }
+      return d;
+    },
+    set(val) {
+      dataMap.set(this, val);
+    },
+    enumerable: false,
+    configurable: true,
+  });
+}
+
 interface PlaneSceneProps {
   progress: MotionValue<number>;
 }
