@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-B5yqYJvp.js";import{t}from"./FlightBoard-CmkFSiRy.js";import{r as n}from"./StatusChip-C2LkvBUm.js";var r=e();function i(){return(0,r.jsx)(n,{title:`Flight board`,subtitle:`All movements · click any row for cross-table drill-down`,bodyClassName:``,className:`min-h-[70vh]`,children:(0,r.jsx)(t,{})})}export{i as component};
