@@ -58,11 +58,11 @@ function LandingPage() {
     clamp: true,
   });
 
-  // CTA fades in last
-  const ctaOpacity = useTransform(scrollYProgress, [0.7, 0.88], [0, 1], {
+  // CTA fades in last — only when plane has fully landed
+  const ctaOpacity = useTransform(scrollYProgress, [0.92, 1], [0, 1], {
     clamp: true,
   });
-  const ctaY = useTransform(scrollYProgress, [0.7, 0.88], [40, 0], {
+  const ctaY = useTransform(scrollYProgress, [0.92, 1], [30, 0], {
     clamp: true,
   });
 
