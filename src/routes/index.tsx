@@ -194,40 +194,6 @@ function LandingPage() {
           </div>
         </motion.div>
       </section>
-
-      {/* ────────────── CTA section — sticks at bottom once plane lands ────────────── */}
-      <section className="sticky bottom-0 z-10 flex h-[50vh] flex-col items-center justify-center px-4">
-        <motion.div
-          className="flex flex-col items-center rounded-2xl border border-border/80 bg-surface/90 p-8 sm:p-12 text-center backdrop-blur-xl max-w-xl shadow-2xl"
-          style={{ opacity: ctaOpacity, y: ctaY }}
-        >
-          <div className="mb-4 rounded-full bg-accent/10 p-3 border border-accent/30 text-accent">
-            <Radio className="h-6 w-6" />
-          </div>
-          <h2 className="font-display text-2xl sm:text-3xl text-foreground">
-            Operational Picture Active
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-sm">
-            Integrated flight board, gate stand timeline, baggage flow, and resource roster.
-          </p>
-
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
-            <Link
-              to="/dashboard"
-              className="glow-cta inline-flex items-center justify-center gap-2.5 rounded-xl border border-accent/40 bg-accent px-6 py-3.5 font-display text-sm tracking-tight text-accent-foreground transition-all hover:scale-105"
-            >
-              <span>Enter Control Center</span>
-              <ArrowRight className="h-4.5 w-4.5" />
-            </Link>
-            <Link
-              to="/dashboard"
-              className="inline-flex items-center justify-center gap-2.5 rounded-xl border border-border/80 bg-surface/50 px-6 py-3.5 font-display text-sm tracking-tight text-foreground hover:bg-surface-raised transition-all hover:scale-105"
-            >
-              <span>View Live Analytics</span>
-            </Link>
-          </div>
-        </motion.div>
-      </section>
     </div>
 
       {/* ── Fixed bottom bar — always visible ── */}
