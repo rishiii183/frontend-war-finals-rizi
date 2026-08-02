@@ -73,6 +73,28 @@ function LandingPage() {
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
+      {/* ── Floating Header ── */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-background/20 border-b border-border/10">
+        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Radio className="h-4.5 w-4.5 text-primary" />
+          <span className="font-sans font-black tracking-wider text-sm">AOCC</span>
+        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/dashboard"
+            className="rounded-lg border border-accent/20 bg-surface/50 hover:bg-surface-raised px-4.5 py-2 text-xs font-semibold text-foreground backdrop-blur-sm transition-all"
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/dashboard"
+            className="rounded-lg bg-accent px-4.5 py-2 text-xs font-semibold text-accent-foreground hover:opacity-90 transition-all shadow-[0_0_15px_rgba(0,242,254,0.25)]"
+          >
+            Live Analytics
+          </Link>
+        </div>
+      </header>
+
       {/* ── Fixed 3D canvas backdrop ── */}
       <div className="fixed inset-0 z-0 landing-gradient">
         {isClient ? (
@@ -142,7 +164,7 @@ function LandingPage() {
       {/* ─────────── Runway transition ─────────── */}
       <section className="relative z-10 flex h-[50vh] items-end justify-center pb-12">
         <motion.div
-          className="w-full max-w-3xl px-4"
+          className="runway-container w-full max-w-3xl px-4"
           style={{ opacity: runwayOpacity }}
         >
           {/* Edge lights — top row */}
@@ -188,13 +210,19 @@ function LandingPage() {
             Integrated flight board, gate stand timeline, baggage flow, and resource roster.
           </p>
 
-          <div className="mt-6">
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <Link
               to="/dashboard"
-              className="glow-cta inline-flex items-center gap-3 rounded-xl border border-accent/40 bg-accent px-8 py-4 font-display text-base tracking-tight text-accent-foreground transition-all hover:scale-105 sm:text-lg"
+              className="glow-cta inline-flex items-center justify-center gap-2.5 rounded-xl border border-accent/40 bg-accent px-6 py-3.5 font-display text-sm tracking-tight text-accent-foreground transition-all hover:scale-105"
             >
               <span>Enter Control Center</span>
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-4.5 w-4.5" />
+            </Link>
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center justify-center gap-2.5 rounded-xl border border-border/80 bg-surface/50 px-6 py-3.5 font-display text-sm tracking-tight text-foreground hover:bg-surface-raised transition-all hover:scale-105"
+            >
+              <span>View Live Analytics</span>
             </Link>
           </div>
         </motion.div>
